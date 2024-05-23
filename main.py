@@ -16,9 +16,16 @@ langchain.debug = True
 
 llm = ChatOpenAI()
 
+tables = list_tables()
+
 prompt = ChatPromptTemplate(
   messages=[
-    SystemMessage(content=f"You are an AI having access to a SQLite database having following tables: {list_tables()}"),
+    SystemMessage(content=
+      f"You are an AI having access to a SQLite database having following tables: {tables}. \n"
+      "Do not make any assumption about the tables. \n"
+      "Instead always try to use 'describe_tables_tool' to get schema of relevant tables \n"
+      "before you try to figure out the query."
+    ),
     HumanMessagePromptTemplate.from_template("{input}"),
     # agent_scratchpad is specific, kinda a simple form of memorising 
     # the output of the tool in the chain
