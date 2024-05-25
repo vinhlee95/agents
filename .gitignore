@@ -1,2 +1,4 @@
 .env
 Pipfile.lock
+.DS_Store
+tools/__pycache__
